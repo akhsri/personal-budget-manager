@@ -1,4 +1,23 @@
-import { Controller } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, ValidationPipe } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
+import { MoneyTransactionService } from './money-transaction.service';
+import { MoneyTransactionDto } from './dto/money-transaction.dto';
+import { GetUser } from '../auth/get-user.decorator';
+import { User } from '../auth/user.entity';
+import { MoneyTransaction } from './money-transaction.entity';
 
 @Controller('money-transaction')
-export class MoneyTransactionController { }
+@UseGuards(AuthGuard())
+export class MoneyTransactionController {
+    constructor(
+        private moneyTransactionService: MoneyTransactionService
+    ) { }
+
+    @Post('/create')
+    addMoneyTransaction(@Body(ValidationPipe)
+    moneyTransactionDto: MoneyTransactionDto,
+        @GetUser() user: User
+    ): Promise<MoneyTransaction> {
+        return this.moneyTransactionService.addMoneyTransaction(moneyTransactionDto, user);
+    }
+}
