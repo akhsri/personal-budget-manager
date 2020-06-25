@@ -8,12 +8,13 @@ import { InternalServerErrorException } from "@nestjs/common";
 export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
 
     async addMoneyTransaction(moneyTransactionDto: MoneyTransactionDto, user: User): Promise<MoneyTransaction> {
-        const { moneyTransactionType, payee, payer, occuredAt } = moneyTransactionDto;
+        const { moneyTransactionType, payee, payer, occuredAt, categoryId } = moneyTransactionDto;
 
         const moneyTransaction = new MoneyTransaction();
         moneyTransaction.moneyTransactionType = moneyTransactionType;
         moneyTransaction.payee = payee;
         moneyTransaction.payer = payer;
+        moneyTransaction.categoryId = categoryId;
         moneyTransaction.occuredAt = occuredAt;
         moneyTransaction.userId = user.id;
 

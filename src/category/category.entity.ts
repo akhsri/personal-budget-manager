@@ -1,6 +1,7 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm";
 import { User } from "../auth/user.entity";
 import { Budget } from "../budget/budget.entity";
+import { MoneyTransaction } from "../money-transaction/money-transaction.entity";
 
 @Entity()
 export class Category extends BaseEntity {
@@ -19,4 +20,7 @@ export class Category extends BaseEntity {
 
     @OneToMany(type => Budget, budget => budget.category, { eager: true })
     budgets: Budget[];
+
+    @OneToMany(type => MoneyTransaction, moneyTransaction => moneyTransaction.category, { eager: true })
+    moneyTransactions: MoneyTransaction[]
 }

@@ -1,6 +1,7 @@
 import { BaseEntity, Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from "typeorm";
 import { MoneyTransactionType } from "./money-transaction-type.enum";
 import { User } from "../auth/user.entity";
+import { Category } from "../category/category.entity";
 
 @Entity()
 export class MoneyTransaction extends BaseEntity {
@@ -15,6 +16,12 @@ export class MoneyTransaction extends BaseEntity {
 
     @Column({ type: 'varchar', nullable: true })
     payee: string;
+
+    @ManyToOne(type => Category, category => category.moneyTransactions, { eager: false })
+    category!: Category;
+
+    @Column({ type: 'int', nullable: false })
+    categoryId: number;
 
     @ManyToOne(type => User, user => user.moneyTransaction, { eager: false })
     user!: User;
