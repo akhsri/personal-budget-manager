@@ -15,4 +15,8 @@ export class MoneyTransactionService {
     async addMoneyTransaction(moneyTransactionDto: MoneyTransactionDto, user: User): Promise<MoneyTransaction> {
         return this.moneyTransactionRepository.addMoneyTransaction(moneyTransactionDto, user);
     }
+
+    async getMoneyTransactions(user: User): Promise<MoneyTransaction[]> {
+        return this.moneyTransactionRepository.getMoneyTransactions(user);
+    }
 }
