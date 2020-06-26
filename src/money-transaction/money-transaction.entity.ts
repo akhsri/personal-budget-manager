@@ -17,6 +17,9 @@ export class MoneyTransaction extends BaseEntity {
     @Column({ type: 'varchar', nullable: true })
     payee: string;
 
+    @Column()
+    amount: number;
+
     @ManyToOne(type => Category, category => category.moneyTransactions, { eager: false })
     category!: Category;
 
