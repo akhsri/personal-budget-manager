@@ -16,6 +16,9 @@ export class MoneyTransactionDto {
     payee: string;
 
     @IsNumber()
+    amount: number;
+
+    @IsNumber()
     categoryId: number;
 
     @IsDateString()
