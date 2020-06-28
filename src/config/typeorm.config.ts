@@ -9,7 +9,6 @@ const typeOrmConfig: TypeOrmModuleOptions = {
     database: 'budgetmanagement',
     entities: [__dirname + '/../**/*.entity.{js,ts}'],
     synchronize: false,
-    migrationsRun: true,
     logging: true,
     logger: 'file',
     migrations: [__dirname + '/../migrations/**/*{.ts,.js}'],
