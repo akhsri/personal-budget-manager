@@ -2,7 +2,7 @@ import { Repository, EntityRepository } from "typeorm";
 import { MoneyTransaction } from "./money-transaction.entity";
 import { MoneyTransactionDto } from "./dto/money-transaction.dto";
 import { User } from "../auth/user.entity";
-import { InternalServerErrorException } from "@nestjs/common";
+import { InternalServerErrorException, NotFoundException } from "@nestjs/common";
 
 @EntityRepository(MoneyTransaction)
 export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
@@ -33,5 +33,16 @@ export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
         user: User
     ): Promise<MoneyTransaction[]> {
         return this.find({ where: { userId: user.id } });
+    }
+
+    async getMoneyTransactionById(
+        user: User,
+        id: number
+    ): Promise<MoneyTransaction> {
+        const found = await this.findOne({ where: { id, userId: user.id } });
+        if (!found) {
+            throw new NotFoundException(`Task with id ${id} not found`);
+        }
+        return found;
     }
 }

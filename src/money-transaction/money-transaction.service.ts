@@ -19,4 +19,11 @@ export class MoneyTransactionService {
     async getMoneyTransactions(user: User): Promise<MoneyTransaction[]> {
         return this.moneyTransactionRepository.getMoneyTransactions(user);
     }
+
+    async getMoneyTransactionById(
+        user: User,
+        id: number
+    ) {
+        return this.moneyTransactionRepository.getMoneyTransactionById(user, id);
+    }
 }
