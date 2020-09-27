@@ -23,7 +23,7 @@ export class MoneyTransactionService {
     async getMoneyTransactionById(
         user: User,
         id: number
-    ) {
+    ): Promise<MoneyTransaction> {
         return this.moneyTransactionRepository.getMoneyTransactionById(user, id);
     }
 }

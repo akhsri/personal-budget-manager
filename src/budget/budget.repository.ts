@@ -15,13 +15,10 @@ export class BudgetRepository extends Repository<Budget>{
         budget.year = year;
         budget.userId = user.id;
         budget.categoryId = categoryId;
-        // console.log("budget.userId: ", budget.userId);
 
         try {
             await budget.save();
         } catch (error) {
-            console.log("BUDGET: ", budget);
-            console.log("ERROR: ", error);
             throw new InternalServerErrorException();
         }
 

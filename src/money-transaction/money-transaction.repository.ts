@@ -41,7 +41,7 @@ export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
     ): Promise<MoneyTransaction> {
         const found = await this.findOne({ where: { id, userId: user.id } });
         if (!found) {
-            throw new NotFoundException(`Task with id ${id} not found`);
+            throw new NotFoundException(`Transaction with id ${id} not found`);
         }
         return found;
     }
