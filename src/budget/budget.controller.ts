@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, ValidationPipe, Get } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, ValidationPipe, Get, Patch, ParseIntPipe, Param } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
@@ -27,4 +27,22 @@ export class BudgetController {
     ): Promise<Budget[]> {
         return this.budgetService.getBudgets(user);
     }
+
+    @Get('/:id')
+    getBudgetById(
+        @GetUser() user: User,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Budget> {
+        return this.budgetService.getBudgetById(user, id);
+    }
+
+    // @Patch()
+    // updateBudgetById(
+    //     @Body()
+    //     createBudgetDto: CreateBudgetDto,
+    //     @GetUser() user: User,
+    //     id: number
+    // ): Promise<Budget> {
+    //     return this.budgetService.updateBudgetById(createBudgetDto, user, id);
+    // }
 }

@@ -2,7 +2,7 @@ import { EntityRepository, Repository } from "typeorm";
 import { Budget } from "./budget.entity";
 import { CreateBudgetDto } from "./dto/create-budget.dto";
 import { User } from "../auth/user.entity";
-import { InternalServerErrorException } from "@nestjs/common";
+import { InternalServerErrorException, NotFoundException } from "@nestjs/common";
 
 @EntityRepository(Budget)
 export class BudgetRepository extends Repository<Budget>{
@@ -30,5 +30,16 @@ export class BudgetRepository extends Repository<Budget>{
         user: User
     ): Promise<Budget[]> {
         return this.find({ where: { userId: user.id } })
+    }
+
+    async getBudgetById(
+        user: User,
+        id: number
+    ): Promise<Budget> {
+        const budget = await this.findOne({ where: { userId: user.id, id: id } });
+        if (!budget) {
+            throw new NotFoundException(`Budget with ${id} not found`);
+        }
+        return budget;
     }
 }

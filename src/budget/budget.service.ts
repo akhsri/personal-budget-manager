@@ -37,4 +37,19 @@ export class BudgetService {
     ): Promise<Budget[]> {
         return this.budgetRepository.getBudgets(user);
     }
+
+    async getBudgetById(
+        user: User,
+        id: number
+    ): Promise<Budget> {
+        return this.budgetRepository.getBudgetById(user, id);
+    }
+
+    // async updateBudgetById(
+    //     createBudgetDto: CreateBudgetDto,
+    //     user: User,
+    //     id: number
+    // ): Promise<Budget> {
+
+    // }
 }
