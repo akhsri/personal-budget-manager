@@ -34,4 +34,11 @@ export class MoneyTransactionService {
     ): Promise<MoneyTransaction> {
         return this.moneyTransactionRepository.updateMoneyTransactionById(moneyTransactionDto, user, id);
     }
+
+    async deleteMoneyTransactionById(
+        user: User,
+        id: number
+    ): Promise<void> {
+        return this.moneyTransactionRepository.deleteMoneyTransactionById(user, id);
+    }
 }

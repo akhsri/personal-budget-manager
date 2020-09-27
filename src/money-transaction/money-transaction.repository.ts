@@ -69,4 +69,14 @@ export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
         }
         return moneyTransaction;
     }
+
+    async deleteMoneyTransactionById(
+        user: User,
+        id: number
+    ): Promise<void> {
+        const result = await this.delete({ userId: user.id, id: id });
+        if (result.affected === 0) {
+            throw new NotFoundException(`Transaction with ${id} not found`);
+        }
+    }
 }
