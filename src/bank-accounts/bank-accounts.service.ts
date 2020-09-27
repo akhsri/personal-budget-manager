@@ -22,4 +22,11 @@ export class BankAccountsService {
         return this.bankAccountsRepository.getBankAccounts(user);
     }
 
+    async getBankAccountById(
+        user: User,
+        id: Number
+    ): Promise<BankAccount> {
+        return this.bankAccountsRepository.getBankAccountById(user, id);
+    }
+
 }

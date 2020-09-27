@@ -1,4 +1,4 @@
-import { Controller, Post, Body, ValidationPipe, UseGuards, Get, Query } from '@nestjs/common';
+import { Controller, Post, Body, ValidationPipe, UseGuards, Get, Query, ParseIntPipe, Param } from '@nestjs/common';
 import { BankAccountsService } from './bank-accounts.service';
 import { BankAccountsDto } from './dto/bank-account.dto';
 import { BankAccount } from './bank-accounts.entity';
@@ -24,5 +24,13 @@ export class BankAccountsController {
         @GetUser() user: User
     ): Promise<BankAccount[]> {
         return this.bankAccountsService.getBankAccounts(user);
+    }
+
+    @Get('/:id')
+    getBankAccount(
+        @GetUser() user: User,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<BankAccount> {
+        return this.bankAccountsService.getBankAccountById(user, id)
     }
 }

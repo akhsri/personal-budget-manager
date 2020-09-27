@@ -30,4 +30,11 @@ export class BankAccountsRepository extends Repository<BankAccount> {
     ): Promise<BankAccount[]> {
         return this.find({ where: { userId: user.id } })
     }
+
+    async getBankAccountById(
+        user: User,
+        id: Number
+    ): Promise<BankAccount> {
+        return this.findOne({ where: { userId: user.id, id: id } })
+    }
 }
