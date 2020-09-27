@@ -45,11 +45,11 @@ export class BudgetService {
         return this.budgetRepository.getBudgetById(user, id);
     }
 
-    // async updateBudgetById(
-    //     createBudgetDto: CreateBudgetDto,
-    //     user: User,
-    //     id: number
-    // ): Promise<Budget> {
-
-    // }
+    async updateBudgetById(
+        createBudgetDto: CreateBudgetDto,
+        user: User,
+        id: number
+    ): Promise<Budget> {
+        return this.budgetRepository.updateBudgetById(createBudgetDto, user, id);
+    }
 }

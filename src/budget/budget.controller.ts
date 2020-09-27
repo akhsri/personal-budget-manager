@@ -36,13 +36,13 @@ export class BudgetController {
         return this.budgetService.getBudgetById(user, id);
     }
 
-    // @Patch()
-    // updateBudgetById(
-    //     @Body()
-    //     createBudgetDto: CreateBudgetDto,
-    //     @GetUser() user: User,
-    //     id: number
-    // ): Promise<Budget> {
-    //     return this.budgetService.updateBudgetById(createBudgetDto, user, id);
-    // }
+    @Patch('/:id')
+    updateBudgetById(
+        @Body()
+        createBudgetDto: CreateBudgetDto,
+        @GetUser() user: User,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<Budget> {
+        return this.budgetService.updateBudgetById(createBudgetDto, user, id);
+    }
 }

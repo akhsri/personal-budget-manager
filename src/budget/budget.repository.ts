@@ -42,4 +42,27 @@ export class BudgetRepository extends Repository<Budget>{
         }
         return budget;
     }
+
+    async updateBudgetById(
+        createBudgetDto: CreateBudgetDto,
+        user: User,
+        id: number
+    ): Promise<Budget> {
+        const { budgetAmount, budgetName, month, year, categoryId } = createBudgetDto;
+        const budget = await this.getBudgetById(user, id);
+        budget.budgetName = budgetName;
+        budget.budgetAmount = budgetAmount;
+        budget.month = month;
+        budget.year = year;
+        budget.userId = user.id;
+        budget.categoryId = categoryId;
+
+        try {
+            await budget.save();
+        } catch (error) {
+            throw new InternalServerErrorException();
+        }
+
+        return budget;
+    }
 }
