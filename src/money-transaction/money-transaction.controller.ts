@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, ValidationPipe, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, ValidationPipe, Get, Param, ParseIntPipe, Patch } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { MoneyTransactionService } from './money-transaction.service';
 import { MoneyTransactionDto } from './dto/money-transaction.dto';
@@ -31,6 +31,16 @@ export class MoneyTransactionController {
         @GetUser() user: User,
         @Param('id', ParseIntPipe) id: number
     ): Promise<MoneyTransaction> {
+        console.log("In getMoneyTransactionById");
         return this.moneyTransactionService.getMoneyTransactionById(user, id);
+    }
+
+    @Patch('/:id')
+    updateMoneyTransactionById(
+        @Body() moneyTransactionDto: MoneyTransactionDto,
+        @GetUser() user: User,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<MoneyTransaction> {
+        return this.moneyTransactionService.updateMoneyTransactionById(moneyTransactionDto, user, id);
     }
 }

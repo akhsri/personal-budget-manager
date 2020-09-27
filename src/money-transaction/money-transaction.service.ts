@@ -26,4 +26,12 @@ export class MoneyTransactionService {
     ): Promise<MoneyTransaction> {
         return this.moneyTransactionRepository.getMoneyTransactionById(user, id);
     }
+
+    async updateMoneyTransactionById(
+        moneyTransactionDto: MoneyTransactionDto,
+        user: User,
+        id: number
+    ): Promise<MoneyTransaction> {
+        return this.moneyTransactionRepository.updateMoneyTransactionById(moneyTransactionDto, user, id);
+    }
 }

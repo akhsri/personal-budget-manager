@@ -45,4 +45,28 @@ export class MoneyTransactionRepository extends Repository<MoneyTransaction>{
         }
         return found;
     }
+
+    async updateMoneyTransactionById(
+        moneyTransactionDto: MoneyTransactionDto,
+        user: User,
+        id: number
+    ): Promise<MoneyTransaction> {
+        const { moneyTransactionType, payee, payer, amount, occuredAt, categoryId } = moneyTransactionDto;
+        const moneyTransaction = await this.getMoneyTransactionById(user, id);
+        moneyTransaction.moneyTransactionType = moneyTransactionType;
+        moneyTransaction.payee = payee;
+        moneyTransaction.payer = payer;
+        moneyTransaction.amount = amount;
+        moneyTransaction.categoryId = categoryId;
+        moneyTransaction.occuredAt = occuredAt;
+        moneyTransaction.userId = user.id;
+
+        try {
+            await moneyTransaction.save()
+        } catch (error) {
+            console.log("ERROR: ", error);
+            throw new InternalServerErrorException();
+        }
+        return moneyTransaction;
+    }
 }
