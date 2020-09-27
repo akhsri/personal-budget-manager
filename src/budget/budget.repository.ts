@@ -65,4 +65,14 @@ export class BudgetRepository extends Repository<Budget>{
 
         return budget;
     }
+
+    async deleteBudgetById(
+        user: User,
+        id: number
+    ): Promise<void> {
+        const result = await this.delete({ userId: user.id, id: id });
+        if (result.affected === 0) {
+            throw new NotFoundException(`Budget with ${id} not found`);
+        }
+    }
 }

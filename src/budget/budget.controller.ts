@@ -1,4 +1,4 @@
-import { Controller, UseGuards, Post, Body, ValidationPipe, Get, Patch, ParseIntPipe, Param } from '@nestjs/common';
+import { Controller, UseGuards, Post, Body, ValidationPipe, Get, Patch, ParseIntPipe, Param, Delete } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { BudgetService } from './budget.service';
 import { CreateBudgetDto } from './dto/create-budget.dto';
@@ -44,5 +44,13 @@ export class BudgetController {
         @Param('id', ParseIntPipe) id: number
     ): Promise<Budget> {
         return this.budgetService.updateBudgetById(createBudgetDto, user, id);
+    }
+
+    @Delete('/:id')
+    deleteBudgetById(
+        @GetUser() user: User,
+        @Param('id', ParseIntPipe) id: number
+    ): Promise<void> {
+        return this.budgetService.deleteBudgetById(user, id);
     }
 }

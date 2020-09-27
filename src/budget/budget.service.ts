@@ -52,4 +52,11 @@ export class BudgetService {
     ): Promise<Budget> {
         return this.budgetRepository.updateBudgetById(createBudgetDto, user, id);
     }
+
+    async deleteBudgetById(
+        user: User,
+        id: number
+    ): Promise<void> {
+        return this.budgetRepository.deleteBudgetById(user, id);
+    }
 }
