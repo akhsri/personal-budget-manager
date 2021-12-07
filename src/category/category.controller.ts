@@ -24,7 +24,7 @@ export class CategoryController {
     getCategories(
         @GetUser() user: User
     ): Promise<Category[]> {
-        return this.getCategories(user);
+        return this.categoryService.getCategories(user);
     }
 
 
