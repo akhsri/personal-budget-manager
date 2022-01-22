@@ -35,6 +35,13 @@ export class MoneyTransactionService {
         return this.moneyTransactionRepository.updateMoneyTransactionById(moneyTransactionDto, user, id);
     }
 
+    async getMonthlyOverview(
+        user: User
+    ){
+       const allMoneyTransaction = await this.moneyTransactionRepository.getMoneyTransactions(user);
+
+    }
+
     async deleteMoneyTransactionById(
         user: User,
         id: number
